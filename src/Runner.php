@@ -6,10 +6,12 @@ use Composer\Script\Event;
 
 class Runner
 {
-    static $cwd = null;
+    static ?Event $event = null;
+    static ?string $cwd = null;
 
     public static function execute(Event $event): void
     {
+        static::$event = $event;
         static::$cwd = getcwd();
 
         require_once __DIR__ . '/../../../autoload.php';
