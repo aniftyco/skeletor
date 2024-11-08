@@ -2,10 +2,23 @@
 
 namespace NiftyCo\Skeletor;
 
+use Composer\Script\Event;
+use function Laravel\Prompts\{info, select};
+
 class Skeletor
 {
-    public static function run(): void
+    public function __construct(private string $cwd, private Event $event)
     {
-        echo "\nSoon, Castle Grayskull will be mine!\n\n";
+        //
+    }
+
+    public function select(string $label, array $options, int|string|null $default = null, int $scroll = 5, mixed $validate = null, string $hint = '', bool|string $required = true, ?Closure $transform = null): int|string
+    {
+        return select($label, $options, $default, $scroll, $validate, $hint, $required, $transform);
+    }
+
+    public function info(string $message): string
+    {
+        return info($message);
     }
 }
