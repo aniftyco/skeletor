@@ -28,7 +28,8 @@
         }
     },
     "require-dev": {
-        "pestphp/pest": "^3.5"
+        "pestphp/pest": "^3.5",
+        "composer/composer": "^2.8"
     },
     "autoload-dev": {
         "psr-4": {
