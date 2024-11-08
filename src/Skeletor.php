@@ -17,8 +17,8 @@ class Skeletor
         return select($label, $options, $default, $scroll, $validate, $hint, $required, $transform);
     }
 
-    public function info(string $message): string
+    public function info(string $message): void
     {
-        return info($message);
+        info($message);
     }
 }
