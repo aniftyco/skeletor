@@ -31,10 +31,12 @@ class Runner
     {
         $composerJson = json_decode(file_get_contents(static::$cwd . '/composer.json'), true);
 
-        unlink(static::$cwd . '/Skeletorfile.php');
+        @unlink(static::$cwd . '/Skeletorfile.php');
 
         unset($composerJson['scripts']['post-create-project-cmd']);
 
-        file_put_contents(static::$cwd . '/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        @file_put_contents(static::$cwd . '/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+        @exec('composer remove --dev aniftyco/skeletor');
     }
 }
