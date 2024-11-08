@@ -1,0 +1,45 @@
+{
+    "name": "aniftyco/skeletor",
+    "description": "Summon Skeletor's minion: a Composer companion to unleash extra functionality with every `create-project` command.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "NiftyCo, LLC",
+            "homepage": "https://aniftyco.com"
+        },
+        {
+            "name": "Josh Manders",
+            "homepage": "https://x.com/joshmanders"
+        }
+    ],
+    "homepage": "https://github.com/aniftyco/skeletor",
+    "keywords": [
+        "skeleton",
+        "composer",
+        "create-project"
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "NiftyCo\\Skeletor\\": "src/"
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "^3.5"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "@php vendor/bin/pest"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
