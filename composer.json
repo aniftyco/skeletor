@@ -29,7 +29,8 @@
     },
     "require-dev": {
         "pestphp/pest": "^3.5",
-        "composer/composer": "^2.8"
+        "composer/composer": "^2.8",
+        "illuminate/collections": "^11.30"
     },
     "autoload-dev": {
         "psr-4": {
