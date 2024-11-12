@@ -91,7 +91,7 @@ class Skeletor
         table(...get_defined_vars());
     }
 
-    public function spin(string $message = '', Closure $callback): mixed
+    public function spin(string $message = '', Closure $callback = null): mixed
     {
         return spin(...get_defined_vars());
     }
