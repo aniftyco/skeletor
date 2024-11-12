@@ -21,7 +21,9 @@ class Runner
         try {
             $handler = require_once static::$cwd . '/Skeletorfile.php';
             $handler($skeletor);
-            static::cleanup();
+            if ((bool) getenv('NO_SKELETOR_CLEANUP') === false) {
+                static::cleanup();
+            }
         } catch (\Throwable $e) {
             $event->getIO()->error($e->getMessage());
         }
