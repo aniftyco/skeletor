@@ -6,6 +6,7 @@ use Closure;
 use Composer\Script\Event;
 use Illuminate\Support\Collection;
 use Laravel\Prompts\Progress;
+use Symfony\Component\Process\Process;
 use function Laravel\Prompts\{
     text,
     textarea,
@@ -130,12 +131,16 @@ class Skeletor
         outro(...get_defined_vars());
     }
 
-    public function exec(string $command): bool|string
+    public function exec(array $command, ?string $cwd = null, ?array $env = null, mixed $input = null, ?float $timeout = 60, ?callable $callback = null): Process
     {
-        return exec(...get_defined_vars());
+        $process = new Process($command, $cwd, $env, $input, $timeout);
+
+        $process->run($callback);
+
+        return $process;
     }
 
-    public function readFile(string $path): string
+    public function readFile(string $filename): string
     {
         return file_get_contents(...get_defined_vars());
     }
