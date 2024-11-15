@@ -31,7 +31,8 @@
     "require-dev": {
         "pestphp/pest": "^3.5",
         "composer/composer": "^2.8",
-        "illuminate/collections": "^11.30"
+        "illuminate/collections": "^11.30",
+        "laravel/pint": "^1.18"
     },
     "autoload-dev": {
         "psr-4": {
