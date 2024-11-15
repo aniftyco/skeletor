@@ -5,17 +5,14 @@ namespace NiftyCo\Skeletor;
 use Closure;
 use Composer\Script\Event;
 use Illuminate\Support\Collection;
+use Laravel\Prompts\Concerns\Colors;
 use Laravel\Prompts\Progress;
 use Symfony\Component\Process\Process;
 
-use function Laravel\Prompts\alert;
 use function Laravel\Prompts\confirm;
-use function Laravel\Prompts\error;
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\intro;
 use function Laravel\Prompts\multisearch;
 use function Laravel\Prompts\multiselect;
-use function Laravel\Prompts\outro;
+use function Laravel\Prompts\note;
 use function Laravel\Prompts\password;
 use function Laravel\Prompts\pause;
 use function Laravel\Prompts\progress;
@@ -26,10 +23,11 @@ use function Laravel\Prompts\suggest;
 use function Laravel\Prompts\table;
 use function Laravel\Prompts\text;
 use function Laravel\Prompts\textarea;
-use function Laravel\Prompts\warning;
 
 class Skeletor
 {
+    use Colors;
+
     public function __construct(private string $cwd, private Event $event)
     {
         //
@@ -103,34 +101,39 @@ class Skeletor
         return progress(...get_defined_vars());
     }
 
-    public function info(string $message): void
+    public function log(string $message, ?string $type = null): void
     {
-        info(...get_defined_vars());
+        note($message, $type);
     }
 
     public function alert(string $message): void
     {
-        alert(...get_defined_vars());
+        $this->log($message, 'alert');
     }
 
     public function warning(string $message): void
     {
-        warning(...get_defined_vars());
+        $this->log("{$this->yellow('⚠')} {$message}");
+    }
+
+    public function success(string $message): void
+    {
+        $this->log("{$this->green('✔')} {$message}");
     }
 
     public function error(string $message): void
     {
-        error(...get_defined_vars());
+        $this->log("{$this->red('x')} {$message}");
     }
 
     public function intro(string $message): void
     {
-        intro(...get_defined_vars());
+        $this->log($message, 'intro');
     }
 
     public function outro(string $message): void
     {
-        outro(...get_defined_vars());
+        $this->log($message, 'outro');
     }
 
     public function exec(array $command, ?string $cwd = null, ?array $env = null, mixed $input = null, ?float $timeout = 60, ?callable $callback = null): Process
