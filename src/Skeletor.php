@@ -90,7 +90,7 @@ class Skeletor
 
     public function spin(string $message = '', ?Closure $callback = null): mixed
     {
-        $result = spin(...get_defined_vars());
+        $result = spin($callback, $message);
         echo "\033[1A\033[K"; // erase previous line
 
         return $result;
@@ -136,13 +136,18 @@ class Skeletor
         $this->log($message, 'outro');
     }
 
+    public function tap(mixed $value, Closure $callback): mixed
+    {
+        $callback($value);
+
+        return $value;
+    }
+
     public function exec(array $command, ?string $cwd = null, ?array $env = null, mixed $input = null, ?float $timeout = 60, ?callable $callback = null): Process
     {
-        $process = new Process($command, $cwd, $env, $input, $timeout);
-
-        $process->run($callback);
-
-        return $process;
+        return $this->tap(new Process($command, $cwd, $env, $input, $timeout), function (Process $process) {
+            $process->run();
+        });
     }
 
     public function readFile(string $filename): string
