@@ -91,9 +91,12 @@ class Skeletor
         table(...get_defined_vars());
     }
 
-    public function spin(string $message = '', Closure $callback = null): mixed
+    public function spin(string $message = '', ?Closure $callback = null): mixed
     {
-        return spin(...get_defined_vars());
+        $result = spin(...get_defined_vars());
+        echo "\033[1A\033[K"; // erase previous line
+
+        return $result;
     }
 
     public function progress(string $label, iterable|int $steps, ?Closure $callback = null, string $hint = ''): array|Progress
