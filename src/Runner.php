@@ -3,6 +3,7 @@
 namespace NiftyCo\Skeletor;
 
 use Composer\Script\Event;
+use Symfony\Component\Process\Process;
 
 class Runner
 {
@@ -40,6 +41,8 @@ class Runner
 
         @file_put_contents(static::$cwd.'/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
-        @exec('composer remove --dev aniftyco/skeletor');
+        $process = new Process(['composer', 'remove', '--quiet', '--no-interaction', '--dev', 'aniftyco/skeletor']);
+        $process->disableOutput();
+        $process->run(null, ['stderr' => false]);
     }
 }
