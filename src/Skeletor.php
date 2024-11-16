@@ -32,7 +32,7 @@ class Skeletor
 
     public function __construct(private string $cwd, private Event $event)
     {
-        var_dump($cwd);
+        $this->workspace = basename($this->cwd);
     }
 
     public function text(string $label, string $placeholder = '', string $default = '', bool|string $required = false, mixed $validate = null, string $hint = '', ?Closure $transform = null): string
