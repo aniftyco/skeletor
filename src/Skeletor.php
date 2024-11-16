@@ -88,12 +88,24 @@ class Skeletor
         table(...get_defined_vars());
     }
 
-    public function spin(string $message = '', ?Closure $callback = null): mixed
+    public function spin(string $message = '', ?Closure $callback = null, ?string $success = null, ?string $error = null): mixed
     {
-        $result = spin($callback, $message);
-        echo "\033[1A\033[K"; // erase previous line
+        try {
+            $result = spin($callback, $message);
+            $this->clearLastLine();
 
-        return $result;
+            if ($success) {
+                $this->success($success);
+            }
+
+            return $result;
+        } catch (\Throwable $e) {
+            $this->clearLastLine();
+            $this->error($error ?? $e->getMessage());
+
+            return null;
+        }
+
     }
 
     public function progress(string $label, iterable|int $steps, ?Closure $callback = null, string $hint = ''): array|Progress
@@ -165,6 +177,22 @@ class Skeletor
         return @unlink(...get_defined_vars());
     }
 
+    public function replaceInFile(string|array $search, string|array $replace, string $file): void
+    {
+        file_put_contents(
+            $file,
+            str_replace($search, $replace, file_get_contents($file))
+        );
+    }
+
+    public function pregReplaceInFile(string $pattern, string $replace, string $file): void
+    {
+        file_put_contents(
+            $file,
+            preg_replace($pattern, $replace, file_get_contents($file))
+        );
+    }
+
     public function removeDirectory(string $filename): bool
     {
         return @rmdir(...get_defined_vars());
@@ -184,5 +212,10 @@ class Skeletor
         }
 
         return $this->writeFile($this->cwd.'/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    }
+
+    private function clearLastLine(): void
+    {
+        echo "\033[1A\033[K"; // erase previous line
     }
 }
