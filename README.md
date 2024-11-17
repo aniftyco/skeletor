@@ -33,31 +33,169 @@ return function (Skeletor $skeletor) {
 };
 ```
 
-### Available methods on `Skeletor::class`:
+## Available Methods
 
-- `text(string $label, string $placeholder = '', string $default = '', bool|string $required = false, mixed $validate = null, string $hint = '', ?Closure $transform = null): string`
-- `textarea(string $label, string $placeholder = '', string $default = '', bool|string $required = false, mixed $validate = null, string $hint = '', int $rows = 5, ?Closure $transform = null): string`
-- `password(string $label, string $placeholder = '', bool|string $required = false, mixed $validate = null, string $hint = '', ?Closure $transform = null): string`
-- `confirm(string $label, bool $default = true, string $yes = 'Yes', string $no = 'No', bool|string $required = false, mixed $validate = null, string $hint = '', ?Closure $transform = null): bool`
-- `select(string $label, array|Collection $options, int|string|null $default = null, int $scroll = 5, mixed $validate = null, string $hint = '', bool|string $required = true, ?Closure $transform = null): int|string`
-- `multiselect(string $label, array|Collection $options, array|Collection $default = [], int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = 'Use the space bar to select options.', ?Closure $transform = null): array`
-- `suggest(string $label, array|Collection|Closure $options, string $placeholder = '', string $default = '', int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = '', ?Closure $transform = null): string`
-- `search(string $label, Closure $options, string $placeholder = '', int $scroll = 5, mixed $validate = null, string $hint = '', bool|string $required = true, ?Closure $transform = null): int|string`
-- `multisearch(string $label, Closure $options, string $placeholder = '', int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = 'Use the space bar to select options.', ?Closure $transform = null): array`
-- `pause(string $message = 'Press enter to continue...'): bool`
-- `table(array|Collection $headers = [], array|Collection|null $rows = null): void`
-- `spin(string $message = '', Closure $callback = null): mixed`
-- `progress(string $label, iterable|int $steps, ?Closure $callback = null, string $hint = ''): array|Progress`
-- `info(string $message): void`
-- `alert(string $message): void`
-- `warning(string $message): void`
-- `error(string $message): void`
-- `intro(string $message): void`
-- `outro(string $message): void`
-- `exec(array $command, ?string $cwd = null, ?array $env = null, mixed $input = null, ?float $timeout = 60, ?callable $callback = null): Process`
-- `readFile(string $filename): string`
-- `writeFile(string $filename, string $data): bool|int`
-- `removeFile(string $filename): bool`
-- `removeDirectory(string $filename): bool`
-- `exists(string $filename): bool`
-- `updateComposerJson(array $data): bool|int`
+### Gathering User Input
+
+#### Text Input
+
+```php
+$text = $skeletor->text('Enter your name:', 'John Doe');
+```
+
+#### Textarea Input
+
+```php
+$description = $skeletor->textarea('Enter a description:');
+```
+
+#### Password Input
+
+```php
+$password = $skeletor->password('Enter your password:');
+```
+
+#### Confirm
+
+```php
+$confirmed = $skeletor->confirm('Do you agree?', true);
+```
+
+#### Select
+
+```php
+$choice = $skeletor->select('Choose an option:', ['Option 1', 'Option 2', 'Option 3']);
+```
+
+#### Multiselect
+
+```php
+$choices = $skeletor->multiselect('Choose multiple options:', ['Option 1', 'Option 2', 'Option 3']);
+```
+
+#### Suggest
+
+```php
+$suggestion = $skeletor->suggest('Start typing:', ['Suggestion 1', 'Suggestion 2', 'Suggestion 3']);
+```
+
+#### Search
+
+```php
+$searchResult = $skeletor->search('Search for an option:', function ($query) {
+    return ['Result 1', 'Result 2', 'Result 3'];
+});
+```
+
+#### Multisearch
+
+```php
+$searchResults = $skeletor->multisearch('Search for multiple options:', function ($query) {
+    return ['Result 1', 'Result 2', 'Result 3'];
+});
+```
+
+### Displaying Information
+
+#### Spinner
+
+```php
+$result = $skeletor->spin('Processing...', function () {
+    // long running task
+    return true;
+});
+```
+
+#### Progress Bar
+
+```php
+$progress = $skeletor->progress('Processing items...', 100, function ($progress) {
+    for ($i = 0; $i < 100; $i++) {
+        $progress->advance();
+    }
+});
+```
+
+#### Messages
+
+```php
+$skeletor->info('This is an info message.');
+
+$skeletor->alert('This is an alert message.');
+
+$skeletor->warning('This is a warning message.');
+
+$skeletor->error('This is an error message.');
+
+$skeletor->intro('Welcome to the setup wizard.');
+
+$skeletor->outro('Setup complete.');
+```
+
+### File Operations
+
+#### Reading a File
+
+```php
+$content = $skeletor->readFile('path/to/file.txt');
+```
+
+#### Writing to a File
+
+```php
+$bytesWritten = $skeletor->writeFile('path/to/file.txt', 'New content');
+```
+
+#### Removing a File
+
+```php
+$success = $skeletor->removeFile('path/to/file.txt');
+```
+
+#### Removing a Directory
+
+```php
+$success = $skeletor->removeDirectory('path/to/directory');
+```
+
+#### Checking if a File Exists
+
+```php
+$exists = $skeletor->exists('path/to/file.txt');
+```
+
+#### Updating composer.json
+
+```php
+$bytesWritten = $skeletor->updateComposerJson(['require' => ['new/package' => '^1.0']]);
+```
+
+#### Executing a Command
+
+```php
+$process = $skeletor->exec(['ls', '-la']);
+```
+
+#### Table
+
+```php
+$skeletor->table(['Header 1', 'Header 2'], [['Row 1 Col 1', 'Row 1 Col 2'], ['Row 2 Col 1', 'Row 2 Col 2']]);
+```
+
+#### Pause
+
+```php
+$skeletor->pause(5);
+```
+
+#### Replace In File
+
+```php
+$replacements = $skeletor->replaceInFile('path/to/file.txt', 'search string', 'replace string');
+```
+
+#### Preg Replace In File
+
+```php
+$replacements = $skeletor->pregReplaceInFile('path/to/file.txt', '/pattern/', 'replace string');
+```
