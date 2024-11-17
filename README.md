@@ -40,49 +40,49 @@ return function (Skeletor $skeletor) {
 #### Text Input
 
 ```php
-$text = $skeletor->text('Enter your name:', 'John Doe');
+$skeletor->text('Enter your name:', 'John Doe');
 ```
 
 #### Textarea Input
 
 ```php
-$description = $skeletor->textarea('Enter a description:');
+$skeletor->textarea('Enter a description:');
 ```
 
 #### Password Input
 
 ```php
-$password = $skeletor->password('Enter your password:');
+$skeletor->password('Enter your password:');
 ```
 
 #### Confirm
 
 ```php
-$confirmed = $skeletor->confirm('Do you agree?', true);
+$skeletor->confirm('Do you agree?', true);
 ```
 
 #### Select
 
 ```php
-$choice = $skeletor->select('Choose an option:', ['Option 1', 'Option 2', 'Option 3']);
+$skeletor->select('Choose an option:', ['Option 1', 'Option 2', 'Option 3']);
 ```
 
 #### Multiselect
 
 ```php
-$choices = $skeletor->multiselect('Choose multiple options:', ['Option 1', 'Option 2', 'Option 3']);
+$skeletor->multiselect('Choose multiple options:', ['Option 1', 'Option 2', 'Option 3']);
 ```
 
 #### Suggest
 
 ```php
-$suggestion = $skeletor->suggest('Start typing:', ['Suggestion 1', 'Suggestion 2', 'Suggestion 3']);
+$skeletor->suggest('Start typing:', ['Suggestion 1', 'Suggestion 2', 'Suggestion 3']);
 ```
 
 #### Search
 
 ```php
-$searchResult = $skeletor->search('Search for an option:', function ($query) {
+$skeletor->search('Search for an option:', function ($query) {
     return ['Result 1', 'Result 2', 'Result 3'];
 });
 ```
@@ -90,7 +90,7 @@ $searchResult = $skeletor->search('Search for an option:', function ($query) {
 #### Multisearch
 
 ```php
-$searchResults = $skeletor->multisearch('Search for multiple options:', function ($query) {
+$skeletor->multisearch('Search for multiple options:', function ($query) {
     return ['Result 1', 'Result 2', 'Result 3'];
 });
 ```
@@ -100,7 +100,7 @@ $searchResults = $skeletor->multisearch('Search for multiple options:', function
 #### Spinner
 
 ```php
-$result = $skeletor->spin('Processing...', function () {
+$skeletor->spin('Processing...', function () {
     // long running task
     return true;
 });
@@ -109,7 +109,7 @@ $result = $skeletor->spin('Processing...', function () {
 #### Progress Bar
 
 ```php
-$progress = $skeletor->progress('Processing items...', 100, function ($progress) {
+$skeletor->progress('Processing items...', 100, function ($progress) {
     for ($i = 0; $i < 100; $i++) {
         $progress->advance();
     }
@@ -137,43 +137,43 @@ $skeletor->outro('Setup complete.');
 #### Reading a File
 
 ```php
-$content = $skeletor->readFile('path/to/file.txt');
+$skeletor->readFile('path/to/file.txt');
 ```
 
 #### Writing to a File
 
 ```php
-$bytesWritten = $skeletor->writeFile('path/to/file.txt', 'New content');
+$skeletor->writeFile('path/to/file.txt', 'New content');
 ```
 
 #### Removing a File
 
 ```php
-$success = $skeletor->removeFile('path/to/file.txt');
+$skeletor->removeFile('path/to/file.txt');
 ```
 
 #### Removing a Directory
 
 ```php
-$success = $skeletor->removeDirectory('path/to/directory');
+$skeletor->removeDirectory('path/to/directory');
 ```
 
 #### Checking if a File Exists
 
 ```php
-$exists = $skeletor->exists('path/to/file.txt');
+$skeletor->exists('path/to/file.txt');
 ```
 
 #### Updating composer.json
 
 ```php
-$bytesWritten = $skeletor->updateComposerJson(['require' => ['new/package' => '^1.0']]);
+$skeletor->updateComposerJson(['require' => ['new/package' => '^1.0']]);
 ```
 
 #### Executing a Command
 
 ```php
-$process = $skeletor->exec(['ls', '-la']);
+$skeletor->exec(['ls', '-la']);
 ```
 
 #### Table
@@ -191,11 +191,11 @@ $skeletor->pause(5);
 #### Replace In File
 
 ```php
-$replacements = $skeletor->replaceInFile('path/to/file.txt', 'search string', 'replace string');
+$skeletor->replaceInFile('path/to/file.txt', 'search string', 'replace string');
 ```
 
 #### Preg Replace In File
 
 ```php
-$replacements = $skeletor->pregReplaceInFile('path/to/file.txt', '/pattern/', 'replace string');
+$skeletor->pregReplaceInFile('path/to/file.txt', '/pattern/', 'replace string');
 ```
