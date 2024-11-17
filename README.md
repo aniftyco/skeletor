@@ -8,7 +8,7 @@
 ## Installation
 
 ```sh
-composer install --dev aniftyco/skeletor:dev-master
+composer install --dev aniftyco/skeletor
 ```
 
 ## Usage
