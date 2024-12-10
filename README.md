@@ -194,5 +194,5 @@ $skeletor->replaceInFile('path/to/file.txt', 'search string', 'replace string');
 #### Preg Replace In File
 
 ```php
-$skeletor->pregReplaceInFile('path/to/file.txt', '/pattern/', 'replace string');
+$skeletor->pregReplaceInFile('/pattern/', 'replace string', 'path/to/file.txt');
 ```
