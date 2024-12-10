@@ -188,7 +188,7 @@ $skeletor->pause(5);
 #### Replace In File
 
 ```php
-$skeletor->replaceInFile('path/to/file.txt', 'search string', 'replace string');
+$skeletor->replaceInFile( 'search string', 'replace string', 'path/to/file.txt')
 ```
 
 #### Preg Replace In File
