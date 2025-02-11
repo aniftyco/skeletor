@@ -30,7 +30,15 @@ return function (Skeletor $skeletor) {
 };
 ```
 
-## Available Methods
+## Skeletor API
+
+### Metadata About Project
+
+#### Workspace
+
+```php
+$skeletor->workspace
+```
 
 ### Gathering User Input
 
@@ -195,4 +203,20 @@ $skeletor->replaceInFile( 'search string', 'replace string', 'path/to/file.txt')
 
 ```php
 $skeletor->pregReplaceInFile('/pattern/', 'replace string', 'path/to/file.txt');
+```
+
+### Post-Cleanup Hook
+
+If you return a function from your `SkeletorFile.php` function, Skeletor will execute it after running its cleanup phase to do any additional cleanup or actions you deem necessary. For example:
+
+```php
+
+return function (Skeletor $skeletor) {
+    // ...
+
+    return function() use ($skeletor) {
+        $skeletor->exec(['git', 'init']);
+        $skeletor->exec(['git', 'commit', '-am', '"initial commit"']);
+    };
+};
 ```
